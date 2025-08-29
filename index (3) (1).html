@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>prathu — Portfolio</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-1:#0d0f12; --bg-2:#111317; --fg:#e9f1ff;
+  --muted:#9fb0c3; --accent:#06b6d4; --accent-2:#a855f7; --ok:#22c55e; --warn:#f59e0b;
+  --radius:14px; --gap:10px; --pad:14px; --shadow:0 0 0.7rem rgba(6,182,212,.45);
+}
+html{scroll-behavior:smooth}
+body{
+  font:500 15px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  color:var(--fg);
+  background:
+    radial-gradient(1200px 1200px at 10% -10%, rgba(6,182,212,.12), transparent 60%),
+    radial-gradient(1200px 1200px at 90% 110%, rgba(168,85,247,.12), transparent 60%),
+    linear-gradient(180deg,var(--bg-1),var(--bg-2));
+}
+
+.header{
+  position:sticky; top:0; z-index:999;
+  background:rgba(10,12,15,.88); backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav{
+  max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:center;
+  gap:18px; padding:8px 10px;
+}
+.nav a{
+  color:var(--fg); text-decoration:none; font-weight:600; letter-spacing:.2px; padding:6px 10px;
+  border-radius:999px; transition:transform .18s ease, box-shadow .18s ease, color .18s ease;
+  outline:2px solid transparent; outline-offset:2px;
+}
+.nav a:focus-visible{outline-color:var(--accent)}
+.nav a:hover{color:#fff; transform:scale(1.07); box-shadow:0 0 .6rem rgba(6,182,212,.55)}
+/* offset so anchored sections aren’t hidden under sticky header */
+section{scroll-margin-top:60px}
+
+.wrap{max-width:980px; margin:0 auto; padding:0 12px}
+section{padding:18px 0}    /* compact */
+.h{font-size:20px; font-weight:800; letter-spacing:.2px; margin-bottom:8px}
+.p{color:var(--muted)}
+
+.hero{display:grid; place-items:center; text-align:center; padding-top:18px}
+.avatar{
+  width:138px; height:138px; border-radius:50%; overflow:hidden;
+  border:3px solid var(--accent);
+  box-shadow:0 0 18px rgba(6,182,212,.55), inset 0 0 12px rgba(6,182,212,.25);
+  animation:ring 2.4s ease-in-out infinite alternate;
+}
+@keyframes ring{from{transform:scale(1)} to{transform:scale(1.04)}}
+.avatar img{width:100%; height:100%; object-fit:cover}
+.name{font-size:28px; font-weight:900; margin-top:8px; text-shadow:0 0 .65rem rgba(6,182,212,.55)}
+.tag{color:var(--muted); font-weight:600}
+
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+.chip{
+  border:1px solid rgba(255,255,255,.08); border-radius:999px; padding:6px 10px;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  box-shadow:0 0 .6rem rgba(168,85,247,.25);
+  font-weight:600; color:#eaf8ff
+}
+
+.grid{display:grid; gap:10px}
+.skills .grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.card{
+  border:1px solid rgba(255,255,255,.08); border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  padding:12px; font-weight:700; text-align:center;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.card:hover{transform:scale(1.03); border-color:rgba(6,182,212,.45); box-shadow:var(--shadow)}
+
+.glass{
+  border:1px solid rgba(255,255,255,.08); border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  padding:12px
+}
+.about .p{line-height:1.35}
+
+.projects .grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.proj{
+  display:grid; gap:8px; padding:12px; border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.proj:hover{transform:scale(1.03); border-color:rgba(245,158,11,.5); box-shadow:0 0 .8rem rgba(245,158,11,.45)}
+.proj a{
+  text-decoration:none; color:#c9f8ff; font-weight:800;
+}
+.badges{display:flex; gap:6px; flex-wrap:wrap}
+.badge{font-size:12px; font-weight:700; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.1)}
+.b1{background:rgba(6,182,212,.18)} .b2{background:rgba(168,85,247,.18)} .b3{background:rgba(245,158,11,.18)}
+
+.rc{display:grid; gap:10px}
+@media(min-width:760px){.rc{grid-template-columns:1fr 1fr}}
+.resume,.contact{padding:12px; border:1px solid rgba(255,255,255,.08); border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02))}
+
+.resume .p{margin-bottom:8px}
+.btn{
+  display:inline-block; padding:10px 14px; border-radius:10px; font-weight:900;
+  color:#001018; background:var(--accent); text-decoration:none;
+  box-shadow:var(--shadow); transition:transform .16s ease, filter .16s ease
+}
+.btn:hover{transform:translateY(-1px); filter:saturate(120%)}
+.btn:focus-visible{outline:3px solid #fff; outline-offset:2px}
+
+.lead{color:var(--muted); margin-bottom:8px}
+form{display:grid; gap:8px}
+input,textarea{
+  background:rgba(8,10,12,.6); color:var(--fg); border:1px solid rgba(255,255,255,.14);
+  border-radius:10px; padding:10px 12px; transition:border-color .15s ease, box-shadow .15s ease
+}
+input:focus,textarea:focus{border-color:var(--accent); box-shadow:0 0 .7rem rgba(6,182,212,.45)}
+.submit{
+  border:0; cursor:pointer; font-weight:900; color:#001018; background:var(--accent);
+  border-radius:10px; padding:10px 12px; box-shadow:var(--shadow); transition:transform .16s ease
+}
+.submit:hover{transform:translateY(-1px)}
+a,button,input,textarea{accent-color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <nav class="nav wrap">
+    <a href="#home">Home</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section id="home" class="hero">
+    <div class="avatar" aria-hidden="true">
+      <img src="p.jpeg" alt="prathu profile photo" />
+    </div>
+    <h1 class="name">prathu</h1>
+    <p class="tag">BCA Student • Web Developer</p>
+
+    <div class="chips" aria-label="Highlights">
+      <span class="chip">Fast UI</span>
+      <span class="chip">Neon Design</span>
+      <span class="chip">Responsive</span>
+      <span class="chip">Clean HTML</span>
+      <span class="chip">Modern CSS</span>
+      <span class="chip">No JavaScript</span>
+    </div>
+  </section>
+
+  <section id="skills" class="skills">
+    <h2 class="h">My Skills</h2>
+    <div class="grid">
+      <div class="card">HTML</div>
+      <div class="card">CSS</div>
+      <div class="card">JavaScript</div>
+      <div class="card">Responsive Design</div>
+      <div class="card">UI/UX</div>
+      <div class="card">Git</div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2 class="h">About Me</h2>
+    <div class="glass">
+      <p class="p">
+        I’m a student who enjoys building neat, fast and good-looking websites.
+        I keep things simple, focus on clean code and learn something new every week.
+        If you like this minimal neon vibe, we already share the same taste. 🙂
+      </p>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2 class="h">Projects</h2>
+    <div class="grid">
+      <article class="proj">
+        <a href="https://example.com/landing" target="_blank" rel="noopener">Landing Page</a>
+        <div class="badges">
+          <span class="badge b1">HTML</span><span class="badge b1">CSS</span>
+        </div>
+        <p class="p">Single screen product landing with neon CTA.</p>
+      </article>
+      <article class="proj">
+        <a href="https://example.com/portfolio" target="_blank" rel="noopener">Portfolio</a>
+        <div class="badges">
+          <span class="badge b1">HTML</span><span class="badge b1">CSS</span>
+        </div>
+        <p class="p">This exact minimal, fast, no-JS portfolio.</p>
+      </article>
+      <article class="proj">
+        <a href="https://example.com/calculator" target="_blank" rel="noopener">Calculator</a>
+        <div class="badges">
+          <span class="badge b1">HTML</span><span class="badge b1">CSS</span><span class="badge b3">JS</span>
+        </div>
+        <p class="p">Clean keypad + display, responsive layout.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="rc">
+    <!-- Resume -->
+    <div id="resume" class="resume">
+      <h2 class="h">Resume</h2>
+      <p class="p">Want everything in one page? Grab the PDF.</p>
+      <a class="btn" href="resume.pdf" download>📄 Resume (PDF) — Download</a>
+    </div>
+
+    <div id="contact" class="contact">
+      <h2 class="h">Contact Me</h2>
+      <p class="lead">Tell me about your idea. I’ll reply fast.</p>
+      <form action="#" method="post">
+        <label class="sr" for="name" hidden>Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required />
+        <label class="sr" for="email" hidden>Email</label>
+        <input id="email" name="email" type="email" placeholder="Your email" required />
+        <label class="sr" for="msg" hidden>Message</label>
+        <textarea id="msg" name="message" rows="4" placeholder="Your message" required></textarea>
+        <button class="submit" type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>
